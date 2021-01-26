@@ -91,41 +91,33 @@
             <div class="card">
                 <div class="card-body border border-dark">
                     <div class="table-responsive">
-                        <table id="myVillage" class="table table-bordered table-striped">
+                        <table id="cdr_table" class="table table-bordered table-striped table-secondary">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                   
                                     <th>Date</th>
                                     <th>Total no of Calls</th>
-                                    <th>Out of duty hrs Call</th>
-                                    <th>Out Duty hrs Call(ANC)</th>
-                                    <th>Out Duty hrs Call(PNC)</th>
-                                    <th>Out Duty hrs Call Agent(ANC)</th>
-                                    <th>Out Duty hrs Call Doctor(ANC)</th>
-                                    <th>Out Duty hrs Call Agent(PNC)</th>
-                                    <th>Out Duty hrs Call Doctor(PNC)</th>
-                                    <th>Action</th>
+                                    <th>Before ANC hrs</th>
+                                    <th>ANC Calls</th>
+                                    <th>PNC Calls</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                 <?php $i = 1; ?>
+                                 
                                 @foreach ($cdr_arry as $key =>$value)
                                 <tr>
-                                    <th>{{$i}}</th>
-                                    <th>{{$value['cdr_date']}}</th>
-                                    <td>{{$value['total_calls']}}</td>
-                                    <td>{{$value['out_anc_duty'] + $value['out_pnc_duty']}}</td>
-                                    <td>{{$value['out_anc_duty']}}</td>
-                                    <td>{{$value['out_pnc_duty']}}</td>
-                                    <td>{{$value['out_duty_anc_agent_count']}}</td>
-                                     <td>{{$value['out_duty_anc_doctor_count']}}</td>
-                                    <td>{{$value['out_duty_pnc_agent_count']}}</td>
-                                       <td>{{$value['out_duty_pnc_doctor_count']}}</td>
-                                    <td>
-
-                                    </td>
+                                   
+                                    <th>{{$value->start_stamp}}</th>
+                                    <td><input  class="btn btn-default" type="button" value="{{$value->total_calls}}"
+                                    style="display:inline-block;width:80px;height:40px;"></td>
+                                    <td><input  class="btn btn-default" type="button" 
+                                    value="{{$value->before_ANC_hrs}}"  style="display:inline-block;width:80px;height:40px;"></td>
+                                    <td><input  class="btn btn-default" type="button" 
+                                    value="{{$value->ANC_calls}}"  style="display:inline-block;width:80px;height:40px;"></td>
+                                    <td><input  class="btn btn-default" type="button" 
+                                    value="{{$value->PNC_calls}}"  style="display:inline-block;width:80px;height:40px;"></td>
                                 </tr>
-                                <?php  $i++; ?>
+                               
                                 @endforeach
                                  
                             </tbody>
@@ -145,7 +137,12 @@
 @section('script')
   <script src="{{asset('assets/js/jquery-validate.js')}}"></script>
   <script type="text/javascript">
-    
+   $("#cdr_table td input").each(function(){
+        if ($(this).val()== 0) {
+            $(this).removeClass( "btn btn-default" ).addClass( "btn btn-block btn-default disabled" );
+;
+        }
+});
   </script>
   <script src="{{asset('assets/js/daterange_picker.js')}}"></script>
 @endsection

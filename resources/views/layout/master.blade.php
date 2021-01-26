@@ -55,7 +55,7 @@
     <!--**********************************
             Nav header start
         ***********************************-->
-<nav class="main-header navbar navbar-expand navbar-lightblue navbar-dark">
+  <nav class="main-header navbar navbar-expand navbar-lightblue navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item bg-lightblue color-palette">
@@ -65,7 +65,6 @@
         <a href="#" class="nav-link">CDR REPORT</a>
       </li>
     </ul>
-
   </nav>
 
    
@@ -93,9 +92,7 @@
          <!--  <img src="dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image"> -->
          <span class="bg-light color-palette">VOPD IMAGE</span>
         </div>
-      
       </div>
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
@@ -114,15 +111,36 @@
                   <p>CDR</p>
                 </a>
               </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fa fa-phone-alt"></i>
+                  <p>Call Performance
+                   <i class="right fas fa-angle-left"></i>
+                   </p>
+                </a>
+                <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Page</p>
+                  <p>AGENT</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>DOCTOR</p>
+                </a>
+              </li>
+            </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Call Listing</p>
                 </a>
               </li>
             </ul>
           </li>
-         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -143,7 +161,6 @@
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
-          
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
