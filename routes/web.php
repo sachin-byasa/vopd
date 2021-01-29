@@ -15,8 +15,6 @@ $CommonUtils = new \App\Library\CommonUtils();
 
 
 Route::get('/', function () {
-    // return(\Hash::make('1234'));
-    // return view('dummy');
     return Redirect::to(route('report.index'));
 });
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -39,7 +37,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware' => [ 'aut
     //Route::post('/reports/summary', 'ReportController@get_summary')->name('report.summary');
 });
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
