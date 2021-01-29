@@ -21,16 +21,21 @@ class CronMaster extends Model
             //TODO :at the time of deployment take the value from env
             $cron_time=ENV('FETCH_CDR_START_TIME');
             $get_fetched_at=DB::select('call sp_get_cron_master_id()');
-            if(count($get_fetched_at)>0)
-                if(array_key_exists('fetched_at', $get_fetched_at[0])){
+
+            if(count($get_fetched_at)>0){
+
+                 if(isset($get_fetched_at[0]))
+                {
                     $cron_time=$get_fetched_at[0]->fetched_at;
                 }
-
+            }
+               
              //$cron_time=ENV('FETCH_CDR_START_TIME');
             //TODO:end time sjould be current-30 mins
             $data_string="start_date=".$cron_time."&end_date=".date('Y-m-d H:i:s');
-          // dd($data_string);
+           //dd($data_string);
             $url = env('FETCH_CDR_URL');
+
             $current_time=Carbon::now('Asia/Calcutta')->toDateTimeString();
                                            
             $ch = curl_init();
@@ -52,6 +57,7 @@ class CronMaster extends Model
             }
             elseif (!$err)
             {
+
                 $status=Constants::$SUCCESS;
              
                 $this->save_fetched_cdr_into_db($response);
