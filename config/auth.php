@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'vopd',
+        'passwords' => 'vopd',
     ],
 
     /*
@@ -35,17 +35,22 @@ return [
     |
     */
 
-    'guards' => [
+   'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
 
+        'vopd' => [
+            'driver' => 'session',
+            'provider' => 'vopd',
+        ],
+
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
-        ],
+        ]
     ],
 
     /*
@@ -65,10 +70,15 @@ return [
     |
     */
 
-    'providers' => [
+   'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        
+        'vopd' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UserMaster::class,
         ],
 
         // 'users' => [
@@ -92,14 +102,21 @@ return [
     |
     */
 
-    'passwords' => [
+   'passwords' => [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
+        'vopd' => [
+            'provider' => 'vopd',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

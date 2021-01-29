@@ -55,8 +55,8 @@
     <!--**********************************
             Nav header start
         ***********************************-->
-  <nav class="main-header navbar navbar-expand navbar-lightblue navbar-dark">
-    <!-- Left navbar links -->
+ <!--  <nav class="main-header navbar navbar-expand navbar-lightblue navbar-dark">
+  
     <ul class="navbar-nav">
       <li class="nav-item bg-lightblue color-palette">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -65,8 +65,8 @@
         <a href="#" class="nav-link">CDR REPORT</a>
       </li>
     </ul>
-  </nav>
-
+  </nav> -->
+ @include('layout.navheader')
    
     <!--**********************************
             Nav header end
@@ -77,23 +77,23 @@
             Sidebar start
         ***********************************-->
    <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-lightblue elevation-4">
-    <!-- Brand Logo -->
+  <!-- <aside class="main-sidebar sidebar-dark-lightblue elevation-4">
+   
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('images/ArmmanLogo.jpg') }}" alt="AdminLTE Logo" style="width:98%";>
     
     </a>
 
-    <!-- Sidebar -->
+   
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
+     
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-         <!--  <img src="dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image"> -->
+      
          <span class="bg-light color-palette">VOPD IMAGE</span>
         </div>
       </div>
-      <!-- Sidebar Menu -->
+     
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <li class="nav-item has-treeview menu-open">
@@ -106,7 +106,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="{{route('report.index')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>CDR</p>
                 </a>
@@ -120,13 +120,13 @@
                 </a>
                 <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('report.agent')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>AGENT</p>
                 </a>
               </li>
                <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('report.doctor')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>DOCTOR</p>
                 </a>
@@ -134,7 +134,7 @@
             </ul>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('report.call_listing')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Call Listing</p>
                 </a>
@@ -143,10 +143,12 @@
           </li>
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
+     
     </div>
-    <!-- /.sidebar -->
-  </aside>
+   
+  </aside> -->
+   @include('layout.sidebar')
+
 
     <!--**********************************
             Sidebar end

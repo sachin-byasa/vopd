@@ -29,7 +29,7 @@ class CronMaster extends Model
              $cron_time=ENV('FETCH_CDR_START_TIME');
             //TODO:end time sjould be current-30 mins
             $data_string="start_date=".$cron_time."&end_date=".date('Y-m-d H:i:s');
-           
+           //dd($data_string);
             $url = env('FETCH_CDR_URL');
             $current_time=Carbon::now('Asia/Calcutta')->toDateTimeString();
                                            

@@ -5,8 +5,28 @@
     var current_year_to_date;
 
     function cb(start, end) {
-       document.getElementById("reportrange").value =start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY');
-       
+
+      document.getElementById("reportrange").value =start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY');
+      var date_range = start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY');
+    $.ajax({
+        url: BASE_URL + "/admin/reports/getCallerNumber/" + date_range,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response.status);
+            console.log(response.village)
+            if(response.status === "pass"){
+                $('#village').empty(); 
+                $('#village').append('<option value="">Please select village</option>');
+                $.each(response.village, function (i, data) {
+                    var div_data = "<option value=" + data.village_id + ">" + data.village_name + "</option>";
+                    $('#village').append(div_data);
+                });
+            }
+
+        }
+
+    });
     }
 
     if (moment().month() <= moment().month('April')) {

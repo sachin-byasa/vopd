@@ -82,3 +82,21 @@
     box-shadow: 0 2.5em 0 0;
   }
 }
+
+
+.table-secondary thead th{
+  background-color:#6ba5c7;
+  color: #eef8ff;
+  
+}
+.table-secondary tbody tr:nth-of-type(even) {
+  background-color:#dce5eb;
+  border-color: #454d55;
+}
+.table-secondary tbody tr:nth-of-type(odd) {
+  background-color:#e0f2ff;
+  border-color: #454d55;
+}
+.table-secondary thead th {
+  border-color: #454d55;
+}

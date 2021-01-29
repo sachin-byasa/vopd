@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style=" background: linear-gradient(to left top, #4f5962, #c2c7d0) fixed;">
+<body style="background:linear-gradient(to left top, #f8f9fa, #3e7fa5) fixed;">
    <!--  background:linear-gradient(#4f5962, #c2c7d0) -->
     
     <div id="app">
