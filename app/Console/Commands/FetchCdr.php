@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\CronMaster;
+use Log;
 
 class FetchCdr extends Command
 {
@@ -38,7 +39,9 @@ class FetchCdr extends Command
      */
     public function handle()
     {
+        log::info("cron handle start");
         $cron=new CronMaster();
         $cron->fetch_cdr();
+          log::info("cron handle end");
     }
 }
