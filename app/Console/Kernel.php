@@ -4,8 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-//use App\Console\Commands\FetchCdr;
-//use Log;
+use App\Console\Commands\FetchCdr;
+use Log;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+
+        'App\Console\Commands\FetchCdr'
     ];
 
     /**
@@ -25,9 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-    //       log::info("cron scedule start");
-    //      $schedule->command('fetch_cdr:auto')->everyMinute();
-    //        log::info("cron scedule end");
+          log::info("cron scedule start");
+         $schedule->command('fetch_cdr:auto')->everyMinute();
+           log::info("cron scedule end");
     }
 
     /**
