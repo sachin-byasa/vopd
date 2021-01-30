@@ -34,8 +34,9 @@ class CronMaster extends Model
             //TODO:end time sjould be current-30 mins
             $data_string="start_date=".$cron_time."&end_date=".date('Y-m-d H:i:s');
            //dd($data_string);
+            log::info($data_string);
             $url = env('FETCH_CDR_URL');
-
+            log::info($url);
             $current_time=Carbon::now('Asia/Calcutta')->toDateTimeString();
                                            
             $ch = curl_init();
@@ -59,7 +60,7 @@ class CronMaster extends Model
             {
 
                 $status=Constants::$SUCCESS;
-             
+                log::info($response);
                 $this->save_fetched_cdr_into_db($response);
                 DB::select(" call sp_insert_cron_master ('$status')");
                 return $response;
