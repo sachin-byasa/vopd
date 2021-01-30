@@ -10,7 +10,7 @@
 
                   @include('layouts.alerts')
                 <form action="{{ url()->current()}}" method="GET">
-                  <input type="hidden" name="_token" value="{{ Session::token() }}">
+               <!--    <input type="hidden" name="_token" value="{{ Session::token() }}"> -->
                    <div class="row">
                       <div class="col-md-4">
                         <div class="input-group mb-3">
