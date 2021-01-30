@@ -27,11 +27,14 @@ class CronMaster extends Model
                  if(isset($get_fetched_at[0]))
                 {
                     $cron_time=$get_fetched_at[0]->fetched_at;
+                    $cron_time=date('Y-m-d H:i:s',strtotime('+1 seconds',strtotime($cron_time)));
                 }
             }
                
              //$cron_time=ENV('FETCH_CDR_START_TIME');
-            //TODO:end time sjould be current-30 mins
+            //TODO:end time should be current-30 mins
+          
+
             $data_string="start_date=".$cron_time."&end_date=".date('Y-m-d H:i:s');
            //dd($data_string);
             log::info($data_string);
