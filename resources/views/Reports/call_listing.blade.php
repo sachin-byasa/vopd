@@ -96,6 +96,7 @@
                                 <tr>
                                    
                                     <th>Call Date Time</th>
+                                    <th>Caller Number</th>
                                     <th>Agent Name</th>
                                     <th>Agent Phone Number</th>
                                     <th>Doctor Name</th>
@@ -108,6 +109,7 @@
                                 @foreach ($cdr_arry as $key =>$value)
                                 <tr>
                                     <th>{{$value->start_stamp}}</th>
+                                     <td><input  class="btn btn-block btn-default" type="button" value="{{$value->caller_id_number}}"></td>
                                     <td><input  class="btn btn-block btn-default" type="button" value="{{$value->agent_name}}"></td>
                                     <td><input  class="btn btn-block btn-default" type="button" 
                                     value="{{$value->agent_phone_number}}"></td>

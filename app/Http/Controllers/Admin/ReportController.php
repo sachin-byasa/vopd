@@ -163,16 +163,20 @@ class ReportController extends Controller
 
         if(isset($q)&& !is_null($q)){
            $request->validate([
-            "caller_number"=>'required',
+           
              "date_range"=>'required'
            ]);
         }
-        if(count($date_arr)>0 && (isset($q)&& !is_null($q) ) && $request->caller_number)
+          
+        if(count($date_arr)>0 && (isset($q)&& !is_null($q) ))
         {
+            if($request->caller_number==null)
+                $request->caller_number="";
+
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date,$request->caller_number];
-          //  dd($request);
+          
             $results = $utils->CallRaw('sp_get_call_listing_report',$params);
             //dd($results);
             if(count($results)>0){
@@ -183,8 +187,10 @@ class ReportController extends Controller
                 $paginator->setPath(request('/admin/reports'));
                 $paginator->start_date=$start_date;
                 $paginator->end_date=$end_date;
-                $paginator->caller_number=$request->caller_number;
-               // dd($paginator);
+                $paginator->caller_number= $request->caller_number;
+                if($paginator->caller_number=="")
+                        $paginator->caller_number="all";
+                //dd($paginator);
                 return view('reports.call_listing', ['cdr_arry' => $paginator]);
             }   
         }
@@ -194,7 +200,11 @@ class ReportController extends Controller
     public function call_listing_export(Request $request,$start_date,$end_date,$caller_number)
     {
         # code...
+      
         $utils=new Utils();
+        if($caller_number=="all")
+            $caller_number="";
+
         $params = [$start_date,$end_date,$caller_number];
         $results = $utils->CallRaw('sp_get_call_listing_report',$params);
         if(count($results)>0){
