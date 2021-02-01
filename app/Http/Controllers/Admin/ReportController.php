@@ -38,7 +38,7 @@ class ReportController extends Controller
         $start_date=null;
         $end_date=null;
         $date_arr=explode('-', $request->date_range);
-        $results=[];
+       
         $utils=new Utils();
 
         if(isset($q)&& !is_null($q)){
