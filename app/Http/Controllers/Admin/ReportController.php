@@ -52,6 +52,8 @@ class ReportController extends Controller
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date];
+            log::info($start_date);
+            log::info($end_date);
             $results = $utils->CallRaw('sp_get_cdr_summary_report',$params);
             log::info($results);
             if(count($results)>0){
