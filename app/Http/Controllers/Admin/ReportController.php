@@ -15,6 +15,7 @@ use App\Exports\DoctorExport;
 use App\Exports\AgentExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
+use Log;
 class ReportController extends Controller
 {
      /**
@@ -61,7 +62,7 @@ class ReportController extends Controller
             $paginator->setPath(request('/admin/reports'));
             $paginator->start_date=$start_date;
             $paginator->end_date=$end_date;
-           
+           log::info($paginator);
             return view('reports.index', ['cdr_arry' => $paginator]);
         }   
     }
