@@ -53,7 +53,7 @@ class ReportController extends Controller
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date];
             $results = $utils->CallRaw('sp_get_cdr_summary_report',$params);
-          
+            log::info($results);
             if(count($results)>0){
 
             $offset = ($page * $pageSize) - $pageSize;
@@ -62,6 +62,7 @@ class ReportController extends Controller
             $paginator->setPath(request('/admin/reports'));
             $paginator->start_date=$start_date;
             $paginator->end_date=$end_date;
+
            log::info($paginator);
             return view('reports.index', ['cdr_arry' => $paginator]);
         }   
