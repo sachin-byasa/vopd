@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
-
+use Auth;
+use App\Constants;
+use App\Utils;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -15,9 +18,47 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   public function __construct()
     {
-           return view('dashboard.index');
+        $this->middleware('user.control');
+    }
+    public function index(Request $request)
+    {
+
+        $date_arr=explode('-', $request->date_range);
+        $data['total_calls']=0;
+        $data['ANC_calls']=0;
+        $data['PNC_calls']=0;
+        $data['before_ANC_hrs']=0;
+        $data['after_PNC_hrs']=0;
+       
+        if(count($date_arr)>0)
+        {
+
+            $utils=new Utils();
+            if(!array_key_exists('0', $date_arr))
+            $date_arr[0]=date('m/d/Y');
+            if(!array_key_exists('1', $date_arr))
+            $date_arr[1]=date('m/d/Y');
+
+            $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
+            $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
+            $results=DB::select("call sp_get_cdr_summary_report('$start_date','$end_date')");
+           
+            if(count($results)>0){
+
+                foreach ($results as $value) {
+                    
+                    $data['total_calls']=$data['total_calls']+$value->total_calls;
+                    $data['ANC_calls']=$data['ANC_calls']+$value->ANC_calls;
+                    $data['PNC_calls']=$data['PNC_calls']+$value->PNC_calls;
+                    $data['before_ANC_hrs']=$data['before_ANC_hrs']+$value->before_ANC_hrs;
+                    $data['after_PNC_hrs']=$data['after_PNC_hrs']+$value->after_PNC_hrs;
+                }
+            }
+            return view('dashboard.index',$data);
+        }
+        return view('dashboard.index',$data);
     }
 
     /**
