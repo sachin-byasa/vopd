@@ -24,23 +24,22 @@ class DashboardController extends Controller
     }
     public function index(Request $request)
     {
-
+        $date_arr=[];
         $date_arr=explode('-', $request->date_range);
         $data['total_calls']=0;
         $data['ANC_calls']=0;
         $data['PNC_calls']=0;
         $data['before_ANC_hrs']=0;
         $data['after_PNC_hrs']=0;
-       
+     
         if(count($date_arr)>0)
         {
 
             $utils=new Utils();
-            if(!array_key_exists('0', $date_arr))
-            $date_arr[0]=date('m/d/Y');
-            if(!array_key_exists('1', $date_arr))
-            $date_arr[1]=date('m/d/Y');
-
+            if($date_arr[0]==""){
+                    $date_arr[0]=date('m/d/Y');
+                    $date_arr[1]=date('m/d/Y');
+            }
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $results=DB::select("call sp_get_cdr_summary_report('$start_date','$end_date')");
