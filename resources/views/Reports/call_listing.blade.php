@@ -118,9 +118,8 @@
                                     <td><input  class="btn btn-block btn-default" type="button" 
                                     value="{{$value->doctor_phone_number}}"></td>
 
-                                    <td> <i class="fas fa-play"  onclick="play()" type="button"></i> |
-                                      <i class="fas fa-pause"  onclick="pauseAudio()" type="button">
-                                      <audio id="audio" src="{{$value->recording_url}}" ></audio></td>
+                                    <td> 
+                                      <audio controls="controls" id="audio" src="{{$value->recording_url}}" ></audio></td>
                                 </tr>
                                 @endforeach
                             </tbody>

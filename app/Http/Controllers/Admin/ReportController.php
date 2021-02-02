@@ -52,11 +52,9 @@ class ReportController extends Controller
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date];
-            log::info($start_date);
-            log::info($end_date);
+            
             $results=DB::select("call sp_get_cdr_summary_report('$start_date','$end_date')");
-            //$results = $utils->CallRaw('sp_get_cdr_summary_report',$params);
-           // dd($results);
+           
             if(count($results)>0){
 
             $offset = ($page * $pageSize) - $pageSize;
@@ -96,8 +94,8 @@ class ReportController extends Controller
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date];
-            $results = $utils->CallRaw('sp_get_doctor_report',$params);
-            //dd($results);
+            $results = DB::select("call sp_get_doctor_report('$start_date','$end_date')");
+
             if(count($results)>0){
 
                 $offset = ($page * $pageSize) - $pageSize;
@@ -136,7 +134,7 @@ class ReportController extends Controller
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date];
-            $results = $utils->CallRaw('sp_get_agent_report',$params);
+            $results = DB::select("call sp_get_agent_report('$start_date','$end_date')");//
           
             if(count($results)>0){
 
@@ -182,8 +180,7 @@ class ReportController extends Controller
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $params = [$start_date,$end_date,$request->caller_number];
           
-            $results = $utils->CallRaw('sp_get_call_listing_report',$params);
-            //dd($results);
+            $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$request->caller_number')");
             if(count($results)>0){
 
                 $offset = ($page * $pageSize) - $pageSize;
@@ -211,7 +208,8 @@ class ReportController extends Controller
             $caller_number="";
 
         $params = [$start_date,$end_date,$caller_number];
-        $results = $utils->CallRaw('sp_get_call_listing_report',$params);
+
+        $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$caller_number')");
         if(count($results)>0){
             return Excel::download(new CallListingExport($results), 'cdr_report.csv');
         }
@@ -220,8 +218,8 @@ class ReportController extends Controller
     {
         # code...
         $utils=new Utils();
-        $params = [$start_date,$end_date];
-        $results = $utils->CallRaw('sp_get_doctor_report',$params);
+      
+        $results = DB::select("call sp_get_doctor_report('$start_date','$end_date')");
         if(count($results)>0){
             return Excel::download(new DoctorExport($results), 'doctor_performance_report.csv');
         }
@@ -230,8 +228,7 @@ class ReportController extends Controller
     {
         # code...
         $utils=new Utils();
-        $params = [$start_date,$end_date];
-        $results = $utils->CallRaw('sp_get_agent_report',$params);
+        $results =  DB::select("call sp_get_agent_report('$start_date','$end_date')");
         if(count($results)>0){
             return Excel::download(new AgentExport($results), 'agent_performance_report.csv');
         }
@@ -241,7 +238,7 @@ class ReportController extends Controller
         # code...
         $utils=new Utils();
         $params = [$start_date,$end_date];
-        $results = $utils->CallRaw('sp_get_cdr_summary_report',$params);
+        $results = DB::select("call sp_get_cdr_summary_report('$start_date','$end_date')");
         if(count($results)>0){
             return Excel::download(new CdrExport($results), 'report.csv');
         }
