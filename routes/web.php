@@ -15,7 +15,7 @@ $CommonUtils = new \App\Library\CommonUtils();
 
 
 Route::get('/', function () {
-    return Redirect::to(route('report.index'));
+    return Redirect::to(route('dashboard.index'));
 });
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('maintenance', 'Admin\UnderConstructionController@index')->name('under-construction.index');

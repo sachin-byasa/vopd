@@ -41,7 +41,7 @@ class LoginController extends Controller
         
         if(Auth::guard('vopd')->attempt(['email_id' => $request->login_id, 'password' => $request->password], $request->filled('remember')) || 
         Auth::guard('vopd')->attempt(['login_id' => $request->login_id, 'password' => $request->password], $request->filled('remember'))){
-            return redirect()->intended(route('report.index'));
+            return redirect()->intended(route('dashboard.index'));
         }
         else{
             // dd($request->all());
