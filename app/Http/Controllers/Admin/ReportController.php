@@ -54,8 +54,9 @@ class ReportController extends Controller
             $params = [$start_date,$end_date];
             log::info($start_date);
             log::info($end_date);
-            $results = $utils->CallRaw('sp_get_cdr_summary_report',$params);
-            log::info($results);
+            $results=DB::select("call sp_get_cdr_summary_report('$start_date','$end_date')");
+            //$results = $utils->CallRaw('sp_get_cdr_summary_report',$params);
+           // dd($results);
             if(count($results)>0){
 
             $offset = ($page * $pageSize) - $pageSize;

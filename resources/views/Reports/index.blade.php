@@ -107,7 +107,7 @@
                             </thead>
                             <tbody>
                                  
-                                @foreach ($cdr_arry[0] as $key =>$value)
+                                @foreach ($cdr_arry as $key =>$value)
                                 <tr>
                                    
                                     <th>{{$value->start_stamp}}</th>
