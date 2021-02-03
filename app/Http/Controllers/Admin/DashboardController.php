@@ -41,7 +41,7 @@ class DashboardController extends Controller
                     $date_arr[0]=date('d/m/Y');
                     $date_arr[1]=date('d/m/Y');
             }
-            log::info($date_arr[0]);
+            //log::info($date_arr[0]);
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
             $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
             $results=DB::select("call sp_get_cdr_summary_report('$start_date','$end_date')");
