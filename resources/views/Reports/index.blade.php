@@ -111,7 +111,7 @@
                                 <tr>
                                    
                                     <th>{{$value->start_stamp}}</th>
-                                    <td><input  class="btn btn-block btn-default" type="button" value="{{$value->total_calls}}"></td>
+                                    <td><a class="btn btn-block btn-default" type="button" value="{{$value->total_calls}}" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=q">{{$value->total_calls}}</a></td>
                                     <td><input  class="btn btn-block btn-default" type="button" 
                                     value="{{$value->before_ANC_hrs}}"></td>
                                     <td><input  class="btn btn-block btn-default" type="button" 
