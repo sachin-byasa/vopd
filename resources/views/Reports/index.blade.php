@@ -111,15 +111,19 @@
                                 <tr>
                                    
                                     <th>{{$value->start_stamp}}</th>
-                                    <td><a class="btn btn-block btn-default" type="button" value="{{$value->total_calls}}" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=q">{{$value->total_calls}}</a></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->before_ANC_hrs}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->after_PNC_hrs}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->ANC_calls}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->PNC_calls}}"></td>
+                                    <td><a class="btn btn-block btn-default" type="button" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=q">{{$value->total_calls}}</a></td>
+
+                                    <td><a class="btn btn-block btn-default" type="button" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=cdr_before_anc"> {{$value->before_ANC_hrs}} </a></td>
+
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                    value="{{$value->after_PNC_hrs}}" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=cdr_after_pnc"> {{$value->after_PNC_hrs}} </a></td>
+
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                     href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=cdr_anc"> {{$value->ANC_calls}} </a></td>
+
+
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                     href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=cdr_pnc"> {{$value->PNC_calls}} </a></td>
                                 </tr>
                                
                                 @endforeach

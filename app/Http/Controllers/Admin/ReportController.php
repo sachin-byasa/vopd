@@ -160,26 +160,26 @@ class ReportController extends Controller
             $pageSize = $request->page_size;
         $start_date=null;
         $end_date=null;
-        $date_arr=explode('-', $request->date_range);
+        $date_arr=str_replace(" ","",explode('-', $request->date_range));
         $results=[];
         $utils=new Utils();
-
         if(isset($q)&& !is_null($q)){
            $request->validate([
-           
              "date_range"=>'required'
            ]);
         }
-          
         if(count($date_arr)>0 && (isset($q)&& !is_null($q) ))
         {
             if($request->caller_number==null)
                 $request->caller_number="";
 
-            $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
-            $end_date=str_replace(' ', '', $utils->date_format($date_arr[1]));
-            $params = [$start_date,$end_date,$request->caller_number];
+            $start_end_time_arr=$this->get_start_end_time($q);
           
+            $start_date= $utils->date_format($date_arr[0])." ".$start_end_time_arr['start_time'];
+          
+            $end_date=$utils->date_format($date_arr[1])." ".$start_end_time_arr['end_time'];
+
+
             $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$request->caller_number')");
             if(count($results)>0){
 
@@ -190,7 +190,7 @@ class ReportController extends Controller
                 $paginator->start_date=$start_date;
                 $paginator->end_date=$end_date;
                 $paginator->caller_number= $request->caller_number;
-                if($paginator->caller_number=="")
+                if($paginator->caller_number=="")//if user does not enter caller number 
                         $paginator->caller_number="all";
                 //dd($paginator);
                 return view('reports.call_listing', ['cdr_arry' => $paginator]);
@@ -242,6 +242,42 @@ class ReportController extends Controller
         if(count($results)>0){
             return Excel::download(new CdrExport($results), 'report.csv');
         }
+    }
+
+    public function get_start_end_time($value)
+    {
+          $anc_opd_time=DB::table('opd_timing')->where('name','ANC')->select(DB::raw('min(start_time) as anc_start_time ,max(end_time) as anc_end_time'))->first();
+
+          $pnc_opd_time=DB::table('opd_timing')->where('name','PNC')->select(DB::raw('min(start_time)  as pnc_start_time ,max(end_time)  as pnc_end_time'))->first();
+
+
+         if($value=="cdr_before_anc")
+            {
+              
+                $start_time="00:01:00";
+                $end_time=$anc_opd_time->anc_start_time;
+            }
+            elseif($value=="cdr_after_pnc")
+            {
+                $start_time=$pnc_opd_time->pnc_end_time;
+                $end_time="23:59:00";
+            }
+            elseif($value=="cdr_anc")
+            {
+                $start_time=$anc_opd_time->anc_start_time;
+                $end_time=$anc_opd_time->anc_end_time;
+            }
+             elseif($value=="cdr_pnc")
+            {
+               $start_time=$pnc_opd_time->pnc_start_time;
+               $end_time=$pnc_opd_time->pnc_end_time;
+            }
+            else{
+                $start_time="00:01:00";
+                $end_time="23:59:00";
+            }
+
+            return ['start_time'=>$start_time,'end_time'=>$end_time];
     }
     /**
      * Show the form for creating a new resource.
