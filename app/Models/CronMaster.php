@@ -78,8 +78,16 @@ class CronMaster extends Model
     public function save_fetched_cdr_into_db($json)
     {
         $data = json_decode($json);
-//log::info($json);
-        $user = DB::select("CALL sp_insert_cdr('$json')");
-   
+        if($json){
+
+            try{
+                    $user = DB::select("CALL sp_insert_cdr('$json')"); 
+                }
+            catch(Exception $e)
+               {
+                    log::info("Exception:");
+                    log::info($e);
+               }
+        }
     }
 }
