@@ -38,8 +38,8 @@ class DashboardController extends Controller
 
             $utils=new Utils();
             if($date_arr[0]==""){
-                    $date_arr[0]=date('m/d/Y');
-                    $date_arr[1]=date('m/d/Y');
+                    $date_arr[0]=date('d/m/Y');
+                    $date_arr[1]=date('d/m/Y');
             }
             log::info($date_arr[0]);
             $start_date=str_replace(' ', '', $utils->date_format($date_arr[0]));
