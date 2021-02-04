@@ -174,13 +174,24 @@ class ReportController extends Controller
                 $request->caller_number="";
 
             $start_end_time_arr=$this->get_start_end_time($q);
-          
+       
             $start_date= $utils->date_format($date_arr[0])." ".$start_end_time_arr['start_time'];
           
             $end_date=$utils->date_format($date_arr[1])." ".$start_end_time_arr['end_time'];
 
+           if(in_array($q,['agent_total','agent_missed','agent_answered','doctor_missed','doctor_answered','doctor_total'])){
 
-            $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$request->caller_number')");
+                $results =  DB::select("call sp_call_listing_performance('$start_date','$end_date','$request->caller_number')");
+                $results=$this->call_filter_results($q,$request->phone_number,$results);
+                //dd($results);
+           }
+           else{
+                 $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$request->caller_number')");
+           }
+
+
+            }
+           
             if(count($results)>0){
 
                 $offset = ($page * $pageSize) - $pageSize;
@@ -195,7 +206,7 @@ class ReportController extends Controller
                 //dd($paginator);
                 return view('reports.call_listing', ['cdr_arry' => $paginator]);
             }   
-        }
+        
         return view('reports.call_listing',['search' => $q]);
     }
 
@@ -278,6 +289,54 @@ class ReportController extends Controller
             }
 
             return ['start_time'=>$start_time,'end_time'=>$end_time];
+    }
+
+    public function call_filter_results($q,$phone_number,$results)
+    {
+
+            if($q=="agent_total" && $phone_number){
+
+                $results = array_filter($results,function ($item) use($phone_number) {
+                return $item->agent_phone_number == $phone_number;
+              });
+                
+            }
+            elseif($q=="agent_missed" && $phone_number){
+
+                $results = array_filter($results,function ($item) use($phone_number) {
+                return $item->agent_phone_number == $phone_number&&$item->agent_answered=='0'
+                  ;                    
+              });
+            }
+            elseif($q=="agent_answered" && $phone_number){
+
+                $results = array_filter($results,function ($item) use($phone_number) {
+                return $item->agent_phone_number == $phone_number&&$item->agent_answered=='1'
+                  ;                    
+              });      
+            }
+            elseif($q=="doctor_missed" && $phone_number){
+
+                $results = array_filter($results,function ($item) use($phone_number) {
+                return $item->doctor_phone_number == $phone_number&&$item->doctor_answered=='0'
+                  ;                    
+              });
+            }
+            elseif($q=="doctor_answered" && $phone_number){
+          
+                $results = array_filter($results,function ($item) use($phone_number) {
+                return $item->doctor_phone_number == $phone_number&&$item->doctor_answered=='1'
+                  ;                    
+              });      
+            }
+
+           elseif($q=="doctor_total" && $phone_number){
+
+                $results = array_filter($results,function ($item) use($phone_number) {
+                return $item->doctor_phone_number == $phone_number;
+              });
+            }
+            return $results;
     }
     /**
      * Show the form for creating a new resource.

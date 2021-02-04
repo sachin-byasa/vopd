@@ -90,16 +90,22 @@
                                 @foreach ($cdr_arry as $key =>$value)
                                   <tr>
                                       <th>{{$value->start_stamp}}</th>
-                                      <td><input  class="btn btn-block btn-default" type="button" value="{{$value->total_calls_sent}}"
-                                      style="display:inline-block;height:40px;"></td>
+
+                                      <td>
+                                        <a  class="btn btn-block btn-default" type="button"
+                                      style="display:inline-block;height:40px;" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=agent_total&phone_number={{$value->agent_phone_number}}"> {{$value->total_calls_sent}} </a>
+
+                                      </td>
+
                                       <td><input  class="btn btn-block btn-default" type="button" 
-                                      value="{{$value->agent_name}}"  style="display:inline-block;height:40px;"></td>
+                                      value="{{$value->agent_name}}"  style="display:inline-block;height:40px;">
+                                    </td>
                                       <td><input  class="btn btn-block btn-default" type="button" 
                                       value="{{$value->agent_phone_number}}"  style="display:inline-block;height:40px;"></td>
-                                      <td><input  class="btn btn-block btn-default" type="button" 
-                                      value="{{$value->agent_ans}}"  style="display:inline-block;height:40px;"></td>
-                                      <td><input  class="btn btn-block btn-default" type="button" 
-                                      value="{{$value->agent_miss}}"  style="display:inline-block;height:40px;"></td>
+                                      <td><a  class="btn btn-block btn-default" type="button" 
+                                        style="display:inline-block;height:40px;" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=agent_answered&phone_number={{$value->agent_phone_number}}"> {{$value->agent_ans}} </a></td>
+                                      <td><a  class="btn btn-block btn-default" type="button" 
+                                       style="display:inline-block;height:40px;" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=agent_missed&phone_number={{$value->agent_phone_number}}"> {{$value->agent_miss}}</a></td>
                                   </tr>
                                 @endforeach
                             </tbody>

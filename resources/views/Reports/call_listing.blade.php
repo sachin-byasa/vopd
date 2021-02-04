@@ -101,6 +101,7 @@
                                     <th>Agent Phone Number</th>
                                     <th>Doctor Name</th>
                                     <th>Doctor Phone Number</th>
+                                    <th>Hangup Cause</th>
                                     <th>Recording URL</th>
                                 </tr>
                             </thead>
@@ -117,6 +118,7 @@
                                     value="{{$value->doctor_name}}"></td>
                                     <td><input  class="btn btn-block btn-default" type="button" 
                                     value="{{$value->doctor_phone_number}}"></td>
+                                    <td>{{$value->hangup_cause}}</td>
 
                                     <td> 
                                       <audio controls="controls" id="audio" src="{{$value->recording_url}}" ></audio></td>
@@ -128,7 +130,17 @@
                 </div>  
                   <div class="card-footer">
                      {{ $cdr_arry->appends(request()->query())->links() }}
-                     <a class="btn btn-danger back" type="button" href="{{route('report.index')}}?date_range={{ strstr($value->start_stamp,' ',true)}} - {{ strstr($value->start_stamp,' ',true)}}&report_type=Summary&page_size=&q=q"> Back </a> 
+                     @if (strpos(Request::get('q'), 'cdr_') === 0) 
+                     <a class="btn btn-danger back" type="button" 
+                     href="{{route('report.index')}}?date_range={{ strstr($value->start_stamp,' ',true)}} - {{ strstr($value->start_stamp,' ',true)}}&report_type=Summary&page_size=&q=q"> Back </a> 
+                    @elseif(strpos(Request::get('q'), 'agent_') === 0)
+                    <a class="btn btn-danger back" type="button" 
+                     href="{{route('report.agent')}}?date_range={{ strstr($value->start_stamp,' ',true)}} - {{ strstr($value->start_stamp,' ',true)}}&report_type=Summary&page_size=&q=q"> Back </a> 
+                     @elseif(strpos(Request::get('q'), 'doctor_') === 0)
+                    <a class="btn btn-danger back" type="button" 
+                     href="{{route('report.doctor')}}?date_range={{ strstr($value->start_stamp,' ',true)}} - {{ strstr($value->start_stamp,' ',true)}}&report_type=Summary&page_size=&q=q"> Back </a> 
+                    @endif
+                    
                   </div> 
             </div>
              @endif
