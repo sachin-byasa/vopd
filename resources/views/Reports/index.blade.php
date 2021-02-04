@@ -111,7 +111,7 @@
                                 <tr>
                                    
                                     <th>{{$value->start_stamp}}</th>
-                                    <td><a class="btn btn-block btn-default" type="button" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=q">{{$value->total_calls}}</a></td>
+                                    <td><a class="btn btn-block btn-default" type="button" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=cdr_total">{{$value->total_calls}}</a></td>
 
                                     <td><a class="btn btn-block btn-default" type="button" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=cdr_before_anc"> {{$value->before_ANC_hrs}} </a></td>
 
@@ -148,8 +148,8 @@
 @section('script')
   <script src="{{asset('assets/js/jquery-validate.js')}}"></script>
   <script type="text/javascript">
-   $("#cdr_table td input").each(function(){
-        if ($(this).val()== 0) {
+   $("#cdr_table td a").each(function(){
+        if ($(this).text()== 0) {
             $(this).removeClass( "btn btn-default" ).addClass( "btn btn-block btn-default disabled" );
 ;
         }

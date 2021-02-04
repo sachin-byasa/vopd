@@ -17,7 +17,7 @@
                           <div class="input-group-prepend">
                                 <span class="input-group-text">Date Range</span>
                             </div>
-                          <input type="text" name="date_range" id="reportrange"  value="{{ Request::get('date_range') }}" 
+                          <input type="text" name="date_range" id="reportrange"  value="{{ Request::get('date_range')}}" 
                           class="form-control @error('date_range') is-invalid @enderror"  
                           style="background: #fff; cursor: pointer; padding: 5px 5px; border: 1px solid #ccc; ">
                            @error('date_range')
@@ -60,8 +60,8 @@
                     <div class=" button-group mt-3">
                       <div class="btn-group">
                         <div class="form-group mx-sm-1 mb-2">
-                          <button type="submit" class="btn btn-primary mb-2" name="q"
-                                            value="q"
+                          <button type="submit" class="btn btn-primary mb-2" id="submit_q" name="q"
+                                            value="q" data-value="{{ Request::get('q') }}"
                           >Search</button>
                         </div>
                         <div class="form-group mx-sm-1 mb-2">
@@ -128,6 +128,7 @@
                 </div>  
                   <div class="card-footer">
                      {{ $cdr_arry->appends(request()->query())->links() }}
+                     <a class="btn btn-danger back" type="button" href="{{route('report.index')}}?date_range={{ strstr($value->start_stamp,' ',true)}} - {{ strstr($value->start_stamp,' ',true)}}&report_type=Summary&page_size=&q=q"> Back </a> 
                   </div> 
             </div>
              @endif
@@ -147,15 +148,12 @@
 ;
         }
 });
-     function play(){
-       var audio = document.getElementById("audio");
-       audio.play();
-                 }
-function pauseAudio() { 
-   var audio = document.getElementById("audio");
-       audio.pause();
-} 
-
+   $('.back').hide();
+    var buttom = document.querySelector("button");
+    var submit_val = buttom.getAttribute("data-value");
+    console.log(submit_val);
+    if(submit_val!="q")
+      $('.back').show();
 
   </script>
   <script src="{{asset('assets/js/daterange_picker.js')}}"></script>
