@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware' => [ 'aut
     Route::get('/reports/agent', 'ReportController@agent_report')->name('report.agent');
     Route::get('/reports/call_listing', 'ReportController@call_listing')->name('report.call_listing');
     Route::get('/reports/call_listing/export/{start_date}/{end_date}/{caller_number}', 'ReportController@call_listing_export')->name('report.call_listing.export');
+    Route::get('/reports/call_listing/export/{start_date}/{end_date}/{caller_number}/{q}/{phone_number}', 'ReportController@call_listing_export')->name('report.call_listing.export');
     Route::get('/reports/doctor/export/{start_date}/{end_date}', 'ReportController@doctor_export')->name('report.doctor.export');
     Route::get('/reports/agent/export/{start_date}/{end_date}', 'ReportController@agent_export')->name('report.agent.export');
     Route::get('/reports/export/{start_date}/{end_date}', 'ReportController@report_export')->name('report.index.export');
