@@ -85,13 +85,17 @@
               <div class="card-header">
                  <div class="form-group pull-right">
 
-                          <a href="{{ route('report.call_listing.export',[$cdr_arry->start_date,$cdr_arry->end_date,$cdr_arry->caller_number]) }}"> <button type="button"
-                          class="btn btn-default" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button></a>
+                          <!-- <a href="{{ route('report.call_listing.export',[$cdr_arry->start_date,$cdr_arry->end_date,$cdr_arry->caller_number,$cdr_arry->q]) }}"> <button type="button"
+                          class="btn btn-default" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button></a> -->
+                          <button type="button"
+                          class="btn btn-default" onclick="csvdownload()" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button>
                   </div>
               </div>
                 <div class="card-body border border-dark">
                     <div class="table-responsive">
+
                         <table id="cdr_table" class="table table-bordered table-striped table-secondary">
+
                             <thead>
                                 <tr>
                                    
@@ -109,19 +113,18 @@
                                  
                                 @foreach ($cdr_arry as $key =>$value)
                                 <tr>
-                                    <th>{{$value->start_stamp}}</th>
-                                     <td><input  class="btn btn-block btn-default" type="button" value="{{$value->caller_id_number}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" value="{{$value->agent_name}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->agent_phone_number}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->doctor_name}}"></td>
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->doctor_phone_number}}"></td>
+                                    <td>{{$value->start_stamp}}</td>
+                                     <td><a  class="btn btn-block btn-default" type="button"> {{$value->caller_id_number}}</a></td>
+                                    <td><a  class="btn btn-block btn-default" type="button"> {{$value->agent_name}} </a></td>
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                   > {{$value->agent_phone_number}} </a></td>
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                    > {{$value->doctor_name}} </a></td>
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                    > {{$value->doctor_phone_number}} </a></td>
                                     <td>{{$value->hangup_cause}}</td>
-
                                     <td> 
-                                      <audio controls="controls" id="audio" src="{{$value->recording_url}}" ></audio></td>
+                                      <audio controls="controls" id="audio" src="{{$value->recording_url}}"></audio></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -153,13 +156,21 @@
 @endsection
 @section('script')
   <script src="{{asset('assets/js/jquery-validate.js')}}"></script>
+ <script src="{{asset('assets/js/jquery.tabletoCSV.js')}}" type="text/javascript" charset="utf-8"></script>
+
+
   <script type="text/javascript">
-   $("#cdr_table td input").each(function(){
-        if ($(this).val()== 0) {
-            $(this).removeClass( "btn btn-default" ).addClass( "btn btn-block btn-default disabled" );
+   $("#cdr_table td a").each(function(){
+        if ($(this).text()== 0) {
+            $(this).hide();
 ;
         }
 });
+function csvdownload() {
+ $("#cdr_table").tableToCSV();
+}
+
+
    $('.back').hide();
     var buttom = document.querySelector("button");
     var submit_val = buttom.getAttribute("data-value");
