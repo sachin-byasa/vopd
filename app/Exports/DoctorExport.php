@@ -35,18 +35,11 @@ class DoctorExport implements FromCollection,WithHeadings
         return [
             'Date',
             'Total no of Calls sent',
-             'Doctor Name',
+            'Doctor Name',
             'Doctor Phone Number',
             'Calls Answered',
             'Calls Missed'
         ];
-    }
-    public function columnFormats(): array
-    {
-         return [
-                'D' =>'0',
-            ];
-      
     }
 
 }

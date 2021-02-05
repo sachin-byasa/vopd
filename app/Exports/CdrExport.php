@@ -41,13 +41,6 @@ class CdrExport implements FromCollection,WithHeadings
             'PNC Calls'
         ];
     }
-    public function columnFormats(): array
-    {
-        return [
-                'Agent Phone Number' =>'@',
-            ];
-      
-    }
 
 }
 

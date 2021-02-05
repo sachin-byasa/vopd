@@ -41,13 +41,6 @@ class AgentExport implements FromCollection,WithHeadings
             'Calls Missed'
         ];
     }
-    public function columnFormats(): array
-    {
-         return [
-                'D' =>'0',
-            ];
-      
-    }
 
 }
 

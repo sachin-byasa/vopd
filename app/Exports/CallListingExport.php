@@ -34,22 +34,15 @@ class CallListingExport implements FromCollection,WithHeadings
     {
         return [
             'Call Date Time',
-             'Caller Number',
+            'Caller Number',
             'Agent Phone Number',
-             'Agent Name',
-            'Doctor Name',
+            'Agent Name',
             'Doctor Phone Number',
+            'Doctor Name',
             'Recording URL',
+            'Hangup Cause'
 
         ];
     }
-    public function columnFormats(): array
-    {
-        return [
-                'Agent Phone Number' =>'@',
-            ];
-      
-    }
-
 }
 
