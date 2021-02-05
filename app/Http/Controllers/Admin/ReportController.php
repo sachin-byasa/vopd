@@ -201,8 +201,13 @@ class ReportController extends Controller
                 $paginator->start_date=$start_date;
                 $paginator->end_date=$end_date;
                 $paginator->caller_number= $request->caller_number;
+                $paginator->q=$q;
+                $paginator->phone_number="all";
+                if($request->phone_number)
+                   $paginator->phone_number=$request->phone_number;
                 if($paginator->caller_number=="")//if user does not enter caller number 
                         $paginator->caller_number="all";
+
                 //dd($paginator);
                 return view('reports.call_listing', ['cdr_arry' => $paginator]);
             }   
@@ -210,19 +215,28 @@ class ReportController extends Controller
         return view('reports.call_listing',['search' => $q]);
     }
 
-    public function call_listing_export(Request $request,$start_date,$end_date,$caller_number)
+    public function call_listing_export(Request $request,$start_date,$end_date,$caller_number,$q,$phone_number)
     {
         # code...
       
         $utils=new Utils();
         if($caller_number=="all")
             $caller_number="";
+         
 
-        $params = [$start_date,$end_date,$caller_number];
+          if(in_array($q,['agent_total','agent_missed','agent_answered','doctor_missed','doctor_answered','doctor_total'])){
 
-        $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$caller_number')");
+                $results =  DB::select("call sp_call_listing_performance('$start_date','$end_date','$caller_number')");
+                $results=$this->call_filter_results($q,$request->phone_number,$results);
+               
+           }
+           else{
+                 $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$caller_number')");
+                 
+           }
+
         if(count($results)>0){
-            return Excel::download(new CallListingExport($results), 'cdr_report.csv');
+            return Excel::download(new CallListingExport($results), 'call_listing.csv');
         }
     }
      public function doctor_export(Request $request,$start_date,$end_date)

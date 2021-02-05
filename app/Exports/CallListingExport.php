@@ -18,14 +18,14 @@ class CallListingExport implements FromCollection,WithHeadings
     public function __construct($data)
     {
         $this->data = $data;
-        //dd($this->data);
+        
     }
 
     public function collection()
     {
 
       return collect(
-            $this->data
+           $this->data
         );
      
     }

@@ -85,15 +85,12 @@
               <div class="card-header">
                  <div class="form-group pull-right">
 
-                          <button type="button"
-                          class="btn btn-default" onclick="csvdownload()" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button>
+                        <a href="{{ route('report.call_listing.export',[$cdr_arry->start_date,$cdr_arry->end_date,$cdr_arry->caller_number,$cdr_arry->q,$cdr_arry->phone_number]) }}"> <button type="button" class="btn btn-default" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button></a>
                   </div>
               </div>
                 <div class="card-body border border-dark">
                     <div class="table-responsive">
-
                         <table id="cdr_table" class="table table-bordered table-striped table-secondary">
-
                             <thead>
                                 <tr>
                                    
@@ -154,28 +151,6 @@
 @endsection
 @section('script')
   <script src="{{asset('assets/js/jquery-validate.js')}}"></script>
- <script src="{{asset('assets/js/jquery.tabletoCSV.js')}}" type="text/javascript" charset="utf-8"></script>
-
-
-  <script type="text/javascript">
-   $("#cdr_table td a").each(function(){
-        if ($(this).text()== 0) {
-            $(this).hide();
-;
-        }
-});
-function csvdownload() {
- $("#cdr_table").tableToCSV();
-}
-
-
-   $('.back').hide();
-    var buttom = document.querySelector("button");
-    var submit_val = buttom.getAttribute("data-value");
-    console.log(submit_val);
-    if(submit_val!="q")
-      $('.back').show();
-
-  </script>
   <script src="{{asset('assets/js/daterange_picker.js')}}"></script>
+  <script src="{{asset('assets/js/call_listing.js')}}"></script>
    @endsection
