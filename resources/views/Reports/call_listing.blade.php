@@ -85,8 +85,6 @@
               <div class="card-header">
                  <div class="form-group pull-right">
 
-                          <!-- <a href="{{ route('report.call_listing.export',[$cdr_arry->start_date,$cdr_arry->end_date,$cdr_arry->caller_number,$cdr_arry->q]) }}"> <button type="button"
-                          class="btn btn-default" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button></a> -->
                           <button type="button"
                           class="btn btn-default" onclick="csvdownload()" style="background-color: #3c8dbc;color: #eef8ff"> <i class="fas fa-file-export"></i>Export to csv</button>
                   </div>
