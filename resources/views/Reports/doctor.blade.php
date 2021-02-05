@@ -97,11 +97,11 @@
                                     <td><a  class="btn btn-block btn-default" type="button"
                                     style="display:inline-block;height:40px;" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=doctor_total&phone_number={{$value->doctor_phone_number}}"> {{$value->total_calls_sent}} </a></td>
 
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->doctor_name}}"  style="display:inline-block;height:40px;"></td>
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                      style="display:inline-block;height:40px;"> {{$value->doctor_name}} </a></td>
 
-                                    <td><input  class="btn btn-block btn-default" type="button" 
-                                    value="{{$value->doctor_phone_number}}"  style="display:inline-block;height:40px;"></td>
+                                    <td><a  class="btn btn-block btn-default" type="button" 
+                                      style="display:inline-block;height:40px;"> {{$value->doctor_phone_number}} </a></td>
 
                                     <td><a  class="btn btn-block btn-default" type="button" 
                                     style="display:inline-block;height:40px;" href="{{route('report.call_listing')}}?date_range={{ str_replace('/','%2F',$value->start_stamp)}} - {{ str_replace('/','%2F',$value->start_stamp)}}&caller_number=&page_size=&q=doctor_answered&phone_number={{$value->doctor_phone_number}}"> {{$value->dr_ans}}</a>
@@ -134,17 +134,11 @@
 @section('script')
   <script src="{{asset('assets/js/jquery-validate.js')}}"></script>
   <script type="text/javascript">
-   $("#cdr_table td input").each(function(){
-        if ($(this).val()== 0) {
+   $("#cdr_table td a").each(function(){
+        if ($(this).text()== 0) {
             $(this).removeClass( "btn btn-default" ).addClass( "btn btn-block btn-default disabled" );
 ;
         }
-});
-   $(".btn btn-primary mb-2").click(function() {
-
-  $(this).siblings(".btn btn-default").slideToggle("slow", function() {
-    // Animation complete.
-  });
 });
   </script>
   <script src="{{asset('assets/js/daterange_picker.js')}}"></script>
