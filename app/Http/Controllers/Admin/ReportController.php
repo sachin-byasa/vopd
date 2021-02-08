@@ -179,18 +179,17 @@ class ReportController extends Controller
           
             $end_date=$utils->date_format($date_arr[1])." ".$start_end_time_arr['end_time'];
 
+
+            $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$request->caller_number')");
+
            if(in_array($q,['agent_total','agent_missed','agent_answered','doctor_missed','doctor_answered','doctor_total'])){
 
-                $results =  DB::select("call sp_call_listing_performance('$start_date','$end_date','$request->caller_number')");
                 $results=$this->call_filter_results($q,$request->phone_number,$results);
-                //dd($results);
-           }
-           else{
-                 $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$request->caller_number')");
+               
            }
 
 
-            }
+        }
            
             if(count($results)>0){
 
@@ -223,16 +222,13 @@ class ReportController extends Controller
         if($caller_number=="all")
             $caller_number="";
          
+         $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$caller_number')");
 
           if(in_array($q,['agent_total','agent_missed','agent_answered','doctor_missed','doctor_answered','doctor_total'])){
 
-                $results =  DB::select("call sp_call_listing_performance('$start_date','$end_date','$caller_number')");
+               
                 $results=$this->call_filter_results($q,$request->phone_number,$results);
                
-           }
-           else{
-                 $results =  DB::select("call sp_get_call_listing_report('$start_date','$end_date','$caller_number')");
-                 
            }
 
         if(count($results)>0){

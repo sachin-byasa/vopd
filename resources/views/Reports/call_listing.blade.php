@@ -108,17 +108,14 @@
                                  
                                 @foreach ($cdr_arry as $key =>$value)
                                 <tr>
-                                    <td>{{$value->start_stamp}}</td>
-                                     <td><a  class="btn btn-block btn-default" type="button"> {{$value->caller_id_number}}</a></td>
-                                    <td><a  class="btn btn-block btn-default" type="button"> {{$value->agent_name}} </a></td>
-                                    <td><a  class="btn btn-block btn-default" type="button" 
-                                   > {{$value->agent_phone_number}} </a></td>
-                                    <td><a  class="btn btn-block btn-default" type="button" 
-                                    > {{$value->doctor_name}} </a></td>
-                                    <td><a  class="btn btn-block btn-default" type="button" 
-                                    > {{$value->doctor_phone_number}} </a></td>
-                                    <td>{{$value->hangup_cause}}</td>
-                                    <td> 
+                                    <th>{{$value->start_stamp}}</th>
+                                     <th> {{$value->caller_id_number}}</th>
+                                    <th>{{$value->agent_name}}</th>
+                                    <th>{{$value->agent_phone_number}}</th>
+                                    <th> {{$value->doctor_name}}</th>
+                                    <th>{{$value->doctor_phone_number}}</th>
+                                    <th>{{$value->hangup_cause}}</th>
+                                    <th> 
                                       <audio controls="controls" id="audio" src="{{$value->recording_url}}"></audio></td>
                                 </tr>
                                 @endforeach
