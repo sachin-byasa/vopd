@@ -27,9 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-          log::info("cron scedule start");
+         // log::info("cron scedule start");
          $schedule->command('fetch_cdr:auto')->hourly();
-           log::info("cron scedule end");
+          // log::info("cron scedule end");
     }
 
     /**
