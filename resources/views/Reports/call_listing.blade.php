@@ -110,10 +110,21 @@
                                 <tr>
                                     <th>{{$value->start_stamp}}</th>
                                      <th> {{$value->caller_id_number}}</th>
+                                    @if($value->agent_answered=='0')
+                                    <th class="text-danger">{{$value->agent_name}}</th>
+                                    <th class="text-danger">
+                                    {{$value->agent_phone_number}}</th>
+                                   @else
                                     <th>{{$value->agent_name}}</th>
                                     <th>{{$value->agent_phone_number}}</th>
+                                   @endif
+                                    @if($value->doctor_answered=='0')
+                                    <th class="text-danger"> {{$value->doctor_name}}</th>
+                                    <th class="text-danger">{{$value->doctor_phone_number}}</th>
+                                    @else
                                     <th> {{$value->doctor_name}}</th>
                                     <th>{{$value->doctor_phone_number}}</th>
+                                    @endif
                                     <th>{{$value->hangup_cause}}</th>
                                     <th> 
                                       <audio controls="controls" id="audio" src="{{$value->recording_url}}"></audio></td>
