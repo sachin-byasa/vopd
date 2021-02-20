@@ -80,14 +80,14 @@ class CronMaster extends Model
         $data = json_decode($json);
         if($json){
 
-            try{
+          //  try{
                     $user = DB::select("CALL sp_insert_cdr('$json')"); 
-                }
-            catch(Exception $e)
-               {
-                    log::info("Exception:");
-                    log::info($e);
-               }
+               // }
+           // catch(Exception $e)
+             //  {
+                    //log::info("Exception:");
+                    //log::info($e);
+              // }
         }
     }
 }
